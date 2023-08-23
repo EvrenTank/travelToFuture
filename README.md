@@ -1,2 +1,2 @@
-# travelToFuture
+# travel to future
 Case Study
