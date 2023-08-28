@@ -1,0 +1,15 @@
+.header1 {
+    width: 100vw;
+    height: 20vh;
+    background-color: yellowgreen;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .h{
+        font-size: 150px;
+
+    }
+}
