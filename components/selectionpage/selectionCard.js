@@ -1,5 +1,5 @@
 "use client";
-import styles from '../../styles/SelectionCard.module.scss';
+import styles from '../../styles/selectionpage/SelectionCard.module.scss';
 import Card from '@mui/material/Card';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -10,15 +10,24 @@ import Autocomplete from '@mui/material/Autocomplete';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Button from '@mui/material/Button';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import dayjs from 'dayjs';
+import { useDispatch,useSelector } from 'react-redux';
+import {read,rewrite } from '../../flightoptions/slice.js';
 import Link from 'next/link';
-import ListingArea from '../../../components/listingpage/listingArea';
+
 
 const SelectionCard = () => {
 
+    const departureDateRef = useRef(null);
+    const returningDateRef = useRef(null);
+    const fromRef = useRef(null);
+    const toRef = useRef(null);
+
     const [defaultDate, setDefaultDate] = useState('');
     const [bilet,setBilet] = useState(false);
+    const flightoptions = useSelector((state)=>state.flightoptionsReducer)
+    const dispatch = useDispatch()
     useEffect(()=>{
         const currentDate = new Date();
         const year = currentDate.getFullYear();
@@ -33,83 +42,97 @@ const SelectionCard = () => {
     const cities = ['Adana','Adıyaman','Afyon','Ağrı','Aksaray','Amasya','Ankara','Antalya','İzmir','İstanbul'];
     const [tekYon, setTekYon] = useState(true);
 
-    const [departureDate,setDepartureDate] = useState('');
-    const [returnDate,setReturnDate] = useState('');
-    const [from,setFrom] = useState('');
-    const [to,setTo] = useState('');
+    const [departureDate,setDepartureDate] = useState(null);
+    const [returnDate,setReturnDate] = useState(null);
+    const [from,setFrom] = useState(cities[0]);
+    const [to,setTo] = useState(cities[1]);
 
     const changeEvent = () => {
         setTekYon(tekYon => !tekYon);
     };
     return (
-        <div className={styles.divNew}>
           
-        <Card className = {styles.card1}>
-        <FormControlLabel control={<Checkbox onChange={changeEvent} defaultChecked />} label="Tek yön" />
+      <Card className = {styles.card1}>
+      <FormControlLabel control={<Checkbox onChange={changeEvent} defaultChecked />} label="Tek yön" />
 
 
-                <Autocomplete
+      <Autocomplete
       disablePortal
+      ref={fromRef}
       id="from"
+      value ={from}
+      onChange = {(event,newValue) =>{
+        setFrom(newValue);
+        console.log("from="+from);
+      }}
       options={cities}
       sx={{ width: '100%' }}
       renderInput={(params) => <TextField {...params} label="Kalkış Havaalanı" 
-      onChange ={ (event)=>{setFrom(event.target.value);}}
+
       />}
     />
              <Autocomplete
       disablePortal
       id="to"
+      ref ={toRef}
       options={cities}
+      value ={to}
       sx={{ width: '100%' }}
-      onChange ={ (event)=>{
-        setTo(event.target.value);
-        console.log("setTo="+to);
-    }}
+      onChange = {(event,newValue) =>{
+        setTo(newValue);
+        console.log("to="+to);
+      }}
       renderInput={(params) => <TextField {...params} label="Varış Havaalanı" />}
     />
             <Stack className ={styles.stack1}>
             <LocalizationProvider dateAdapter={AdapterDayjs} >
                 <DatePicker 
-                id='date1'
+                id='departureDate'
                 label="Gidiş tarihi" 
+                disablePast
                 sx ={{width:"45%"}}  
                 format='DD/MM/YYYY'
-                value={dayjs(`${defaultDate}`)}
-                onChange ={ (event)=>{
-                    setDepartureDate(event.target.value);
-                    console.log("departure date="+departureDate);
+                ref={departureDateRef}
+                value={departureDate}
+                onChange={(date)=>{
+                    setDepartureDate(date);
+                    console.log("departure date:"+ departureDate);    
                 }}
                   />
                 {!tekYon &&
                 <DatePicker 
                 id='returningDate'
-                minDate={dayjs(`${defaultDate}`)}
-                value={dayjs(`${defaultDate}`)} 
+                disablePast
+                value={returnDate}
                 format='DD/MM/YYYY' 
+                ref ={returningDateRef}
                 label ="Dönüş tarihi" sx ={{width:"45%"}}
-                onChange ={ (event)=>{
-                    setReturnDate(event.target.value);
-                    console.log("return date: " + returnDate);
+                onChange={(date)=>{
+                    setReturnDate(date);
+                    console.log("returndate:"+returnDate);
                 }}
                 />}
             </LocalizationProvider>
             </Stack>
-           
+        <Link href='/listingpage'>
         <Button variant = "contained" className = {styles.buton1}
         onClick={()=>{
-            setBilet(bilet => !bilet);
-            console.log("deene: "+bilet);
+            const readableDate1 = new Date(departureDate).toLocaleDateString(); // Dönüştürülen tarih
+            const readableDate2 = new Date(returnDate).toLocaleDateString(); // Dönüştürülen tarih
+            dispatch(rewrite({departureDate:readableDate1,returnDate:readableDate2,
+            from:from,to:to}));
+            console.log("flight options:"+flightoptions.departureDate);
         }} 
         sx={{
             width:'50%'
-        }} >BİLET BUL</Button>     
-        </Card>
-       {bilet && 
-       <ListingArea departureDate={departureDate} from={from} to={to}/> 
-       }
-        </div>
+        }} >BİLET BUL</Button> 
+        </Link>
+        <Button onClick ={()=>{
+            dispatch(read());
+           
+            }}>See if it is true</Button>
 
+        </Card>
     );
 }
 
