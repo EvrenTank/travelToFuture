@@ -1,34 +1,30 @@
 "use client";
 import styles from '../../styles/listingpage/ListingComponent.module.scss'
 import Image from 'next/image';
+import { useEffect, useState } from 'react';
 import axios from "axios";
 
-const ListingComponent = ({companyName,price,departureTime,landingTime,from,to}) => {
-
-
-
+const ListingComponent = ({companyName,price,departureTime,from,to,duration}) => {
 
     const companyNameUpperCase = companyName.toUpperCase();
-    const flightDuration = (departureTime, landingTime)=>{
+    const [landing,setLanding] = useState('');
+
+    const landingTime = (departureTime, duration)=>{
 // time'lar string olarak geliyor.
     const dep = departureTime.split(':');
-    const lan = landingTime.split(':');
+    const lan = duration.split(':');
     const depHour = parseInt(dep[0]);
     const depMin = parseInt(dep[1]);
-    const lanHour = parseInt(lan[0]);
-    const lanMin = parseInt(lan[1]);
+    const durationHour = parseInt(lan[0]);
+    const durationMin = parseInt(lan[1]);
     var min=0; 
     var hour=0;
-    if ( lanMin => depMin){
-        min = lanMin-depMin;
-        hour = lanHour - depHour;
+
+    min= (depMin+durationMin) %  60;
+    hour = (depHour+durationHour) + Math.floor((depMin+durationMin)/60) ;
+    setLanding(hour + ":" + min);
     }
-    else{
-        min = (lanMin+60)-depMin;
-        hour = (lanHour-1) - depHour;
-    }
-    return "("+hour + " hr " + min +" min)";
-    }
+    useEffect(()=>{landingTime(departureTime,duration)},[])
 
     return (
         <div className={styles.mainDiv} >
@@ -38,7 +34,7 @@ const ListingComponent = ({companyName,price,departureTime,landingTime,from,to})
                 width={200}
                 height={200}
                 alt={`${companyNameUpperCase}`} 
-                src = {`/companyImages/${companyName}.png`} // direkt public dklasoru icinden yol tanimi baslamali 
+                src = {`/companyImages/${companyName}.png`} // direkt public klasoru icinden yol tanimi baslamali 
                 title={`${companyNameUpperCase}`} 
                 />
             </div>
@@ -53,10 +49,10 @@ const ListingComponent = ({companyName,price,departureTime,landingTime,from,to})
                     width={200}
                     height={200}
                     src ='/arrow-right3.png'/>
-                    <span className={styles.span1}>{flightDuration(departureTime,landingTime)}</span>
+                    <span className={styles.span1}>{duration}</span>
                 </div>
                 <div className ={styles.subdiv3}>
-                    <span>{landingTime}</span>
+                    <span>{landing}</span>
                     <span>{to}</span>
                 </div>
                

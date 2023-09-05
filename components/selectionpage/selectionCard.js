@@ -39,7 +39,7 @@ const SelectionCard = () => {
     console.log('Rendered with default date=' + defaultDate); // Doğrudan burada yazdırın
 
 
-    const cities = ['Adana','Adıyaman','Afyon','Ağrı','Aksaray','Amasya','Ankara','Antalya','İzmir','İstanbul'];
+    const cities = ["ADANA","ADIYAMAN", "AFYONKARAHISAR", "AGRI", "AMASYA", "ANKARA", "ANTALYA","ARTVIN","AYDIN"];
     const [tekYon, setTekYon] = useState(true);
 
     const [departureDate,setDepartureDate] = useState(null);

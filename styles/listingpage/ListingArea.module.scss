@@ -1,8 +1,36 @@
-.div11{
-    width: 70vw;
-    height: 80vh;
+.mainDiv{
+
     position: fixed;
-    left: 30vw;
-    top: 20vh;
+    width:90vw;
+    position:fixed;
+    left:5vw;
+    top:2vh;
+    display: flex;
+    flex-direction: column;
+
+    .filterDiv{
+        height:20vh;
+        width: 90vw;
+        border: 2px solid black;
+       .selectDiv{
+        height: 20vh;
+        width:20vw;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+                .selectList{
+            height: 5vh;
+        }
+       }
+        
+    }    
+.div11{
+    width: 90vw;
+    height: 80vh;
+    top:20vh;
+    left:5vw;
     border: 1px solid red;
+    overflow: auto;
+}
+
 }
