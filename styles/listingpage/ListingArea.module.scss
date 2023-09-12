@@ -11,7 +11,7 @@
     .filterDiv{
         height:20vh;
         width: 90vw;
-        border: 2px solid black;
+        position: relative;
        .selectDiv{
         height: 20vh;
         width:20vw;
@@ -20,7 +20,27 @@
         justify-content: center;
                 .selectList{
             height: 5vh;
+            width: 15vw; 
+            max-width:180px;
         }
+      }
+      .optionsDiv{
+        height: 20vh;
+        width: 70vw;
+        position: absolute;
+        top:0;
+        left: 20vw;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        .from {
+            width: 20%;
+        }
+        .to {
+            width:20%;
+        }
+    
        }
         
     }    
@@ -29,7 +49,6 @@
     height: 80vh;
     top:20vh;
     left:5vw;
-    border: 1px solid red;
     overflow: auto;
 }
 

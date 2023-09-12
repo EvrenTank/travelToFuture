@@ -5,45 +5,70 @@ import styles from '../../styles/listingpage/ListingArea.module.scss'
 import { useEffect, useRef, useState } from "react";
 import { useDispatch,useSelector } from 'react-redux';
 import {read,rewrite } from '../../flightoptions/slice.js';
+import Autocomplete from '@mui/material/Autocomplete';
+import TextField from '@mui/material/TextField';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
+const ListingArea = () => {
 
-const ListingArea = ({departureDate,from,to}) => {
+  const cities = ["ADANA","ADIYAMAN", "AFYONKARAHISAR", "AGRI", "AMASYA", "ANKARA", "ANTALYA","ARTVIN","AYDIN"];
 
     const [flights,setFlights] = useState([]);
-    const [key,setKey] = useState(0);
     const flightoptions = useSelector((state)=>state.flightoptionsReducer);
     const selectRef = useRef(null);
-    useEffect(()=>{
-    console.log("ListingArea useEffect başı");
-    console.log("departure Date:"+flightoptions.departureDate);     
-    console.log("return Date:"+flightoptions.returnDate);     
-    console.log("from:"+flightoptions.from);     
-    console.log("to:"+flightoptions.to);     
-    console.log("ListingArea useEffect sonu");
-    readData();
-},[])
-    const deneme = () =>{
-        console.log("Evren TANIK my boys")
+    const dispatch = useDispatch();
+
+    const [departureDate,setDepartureDate] = useState(flightoptions.departureDate);
+    const [returnDate,setReturnDate] = useState(flightoptions.returnDate);
+    const [from,setFrom] = useState(flightoptions.from);
+    const [to,setTo] = useState(flightoptions.to);
+
+    const readValues = () => {
+      setDepartureDate(flightoptions.departureDate);
+      setReturnDate(flightoptions.returnDate);
+      setFrom(flightoptions.from);
+      setTo(flightoptions.to);
     };
 
+    useEffect(()=>{
+    readData();
+    // değerlerin düzgün şekilde güncellenmesi için aşağıdaki dependency'leri girmem grekti.
+},[flightoptions.departureDate,flightoptions.returnDate,flightoptions.from,flightoptions.to])
+    
+    const reWrite = ()=>{
+      console.log('departureDate'+departureDate);
+
+        const readableDate1 = new Date(departureDate).toLocaleDateString(); // Dönüştürülen tarih
+        const readableDate2 = new Date(returnDate).toLocaleDateString(); // Dönüştürülen tarih
+        console.log('readableDate1'+readableDate1);
+
+        dispatch(rewrite({departureDate:readableDate1,returnDate:readableDate2,
+        from:from,to:to}));
+       
+   
+}
+
     const readData = () => {
-        console.log("deneme yapıyorum");
+        console.log("use Effect flightoptions.departureDate===="+flightoptions.departureDate);
+        console.log("use Effect flightoptions.returnDate===="+flightoptions.returnDate);
+        console.log("use Effect flightoptions.from===="+flightoptions.from);
+        console.log("use Effect flightoptions.to===="+flightoptions.to);
         axios.get("http://localhost:5000/flights/")
         .then((response)=>{
             //handle success
-            setFlights(response.data);
+            //setFlights(response.data);
             console.log(response.data);
 
             const appropriateFlights = response.data.filter ((flight) => flight.departureDate == flightoptions.departureDate 
             && flight.to == flightoptions.to && flight.from == flightoptions.from)
             console.log(appropriateFlights);
             setFlights(appropriateFlights);
-            console.log(flights); 
         })
         .catch((error) => {
             console.log(error);
-        })
- 
+        }) 
       };
 
     const sortByOption = () =>{
@@ -54,21 +79,20 @@ const ListingArea = ({departureDate,from,to}) => {
           // direkt flights üzerinden sort yaparsam state değişikliklerini doğru algılayamıyor.
           // bu yüzden [...flights].sort() seklinde yapmak gerekiyor. 
             sortedFlights = [...flights].sort((a,b) => sortBydepartureTime(a,b));
-            console.log("çalışıyor1");
-            console.log("sortedFlights",sortedFlights[0]);
+            //console.log("çalışıyor1");
+            //console.log("sortedFlights",sortedFlights[0]);
             setFlights(sortedFlights);
         }
         else if(value === "Uçuş süresi"){
             sortedFlights = [...flights].sort((a,b) => sortByDuration(a,b));
-            console.log("çalışıyor2")
-            console.log("sortedFlights",sortedFlights[0]);
+            //console.log("çalışıyor2")
+            //console.log("sortedFlights",sortedFlights[0]);
              setFlights(sortedFlights);
-
        }
        else if(value === "Fiyat"){
         sortedFlights = [...flights].sort((a,b) =>sortByPrice(a,b));
-        console.log("çalışıyor3")
-        console.log("sortedFlights",sortedFlights[0]);
+        //console.log("çalışıyor3")
+        //console.log("sortedFlights",sortedFlights[0]);
         setFlights(sortedFlights);
        }
 
@@ -126,26 +150,65 @@ const ListingArea = ({departureDate,from,to}) => {
         {return 1}
     }
     
-
-    
-
-
     return (
         <div className={styles.mainDiv}>       
         <div className={styles.filterDiv}>
         <div className={styles.selectDiv}>
         <select className={styles.selectList} ref={selectRef} onChange={sortByOption} >
          <option value="Kalkış saati">Kalkış saati</option>
-         <option value="Uçuş süresi">Uçuş uzunluğu</option>
+         <option value="Uçuş süresi">Uçuş süresi</option>
          <option value="Fiyat"> Fiyat</option>
         </select>
+        </div>
+        <div className={styles.optionsDiv}>
+          
+        <Autocomplete
+      disablePortal
+      className={styles.from}
+      options={cities}
+      value ={from}
+      onChange = {(event,newValue) =>{
+        setFrom(newValue);
+        console.log("from:"+from);
+      }}
+      renderInput={(params) => <TextField {...params} label="Kalkış Havaalanı" 
+      />}
+    />
+            <Autocomplete
+      disablePortal
+      className={styles.to}
+      value ={to}
+      onChange = {(event,newValue) =>{
+        setTo(newValue);
+      }}
+      options={cities}
+      sx={{ width: '100%' }}
+      renderInput={(params) => <TextField {...params} label="Varış Havaalanı" 
+      />}
+    />
+                  <LocalizationProvider dateAdapter={AdapterDayjs} >
+                <DatePicker 
+                id='departureDate'
+                label="Gidiş tarihi" 
+                disablePast
+                sx ={{width:"40%"}}  
+                value={departureDate}
+                format='DD/MM/YYYY'
+                onChange={(date)=>{
+                    setDepartureDate(date);
+                    console.log("departure date onchange kısmı:"+ departureDate);    
+                }}
+                  />
+
+            </LocalizationProvider>
+            <button  onClick={reWrite} >BUL</button>
+
+
         </div>
         </div>
 <div  className={styles.div11} >
     { 
-    
         flights.map((flight,index)=>
-
         {   
         return (
         <ListingComponent key={index}

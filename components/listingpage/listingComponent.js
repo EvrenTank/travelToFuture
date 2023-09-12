@@ -22,7 +22,7 @@ const ListingComponent = ({companyName,price,departureTime,from,to,duration}) =>
 
     min= (depMin+durationMin) %  60;
     hour = (depHour+durationHour) + Math.floor((depMin+durationMin)/60) ;
-    setLanding(hour + ":" + min);
+    setLanding(hour.toString().padStart(2,0) + ":" + min.toString().padStart(2,0));
     }
     useEffect(()=>{landingTime(departureTime,duration)},[])
 

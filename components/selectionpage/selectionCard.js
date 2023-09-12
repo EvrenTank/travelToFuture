@@ -16,28 +16,10 @@ import { useDispatch,useSelector } from 'react-redux';
 import {read,rewrite } from '../../flightoptions/slice.js';
 import Link from 'next/link';
 
-
 const SelectionCard = () => {
 
-    const departureDateRef = useRef(null);
-    const returningDateRef = useRef(null);
-    const fromRef = useRef(null);
-    const toRef = useRef(null);
-
-    const [defaultDate, setDefaultDate] = useState('');
-    const [bilet,setBilet] = useState(false);
     const flightoptions = useSelector((state)=>state.flightoptionsReducer)
     const dispatch = useDispatch()
-    useEffect(()=>{
-        const currentDate = new Date();
-        const year = currentDate.getFullYear();
-        const month = String(currentDate.getMonth() + 1).padStart(2, '0');
-        const day = String(currentDate.getDate()).padStart(2, '0');
-        const formattedDate = `${year}-${month}-${day}`;
-        setDefaultDate(formattedDate);
-    },[]);
-    console.log('Rendered with default date=' + defaultDate); // Doğrudan burada yazdırın
-
 
     const cities = ["ADANA","ADIYAMAN", "AFYONKARAHISAR", "AGRI", "AMASYA", "ANKARA", "ANTALYA","ARTVIN","AYDIN"];
     const [tekYon, setTekYon] = useState(true);
@@ -50,37 +32,34 @@ const SelectionCard = () => {
     const changeEvent = () => {
         setTekYon(tekYon => !tekYon);
     };
+
+    
     return (
           
       <Card className = {styles.card1}>
       <FormControlLabel control={<Checkbox onChange={changeEvent} defaultChecked />} label="Tek yön" />
-
-
       <Autocomplete
       disablePortal
-      ref={fromRef}
       id="from"
       value ={from}
       onChange = {(event,newValue) =>{
         setFrom(newValue);
-        console.log("from="+from);
+        //console.log("from="+from);
       }}
       options={cities}
       sx={{ width: '100%' }}
       renderInput={(params) => <TextField {...params} label="Kalkış Havaalanı" 
-
       />}
     />
              <Autocomplete
       disablePortal
       id="to"
-      ref ={toRef}
       options={cities}
       value ={to}
       sx={{ width: '100%' }}
       onChange = {(event,newValue) =>{
         setTo(newValue);
-        console.log("to="+to);
+        //console.log("to="+to);
       }}
       renderInput={(params) => <TextField {...params} label="Varış Havaalanı" />}
     />
@@ -92,11 +71,10 @@ const SelectionCard = () => {
                 disablePast
                 sx ={{width:"45%"}}  
                 format='DD/MM/YYYY'
-                ref={departureDateRef}
                 value={departureDate}
                 onChange={(date)=>{
                     setDepartureDate(date);
-                    console.log("departure date:"+ departureDate);    
+                    //console.log("departure date:"+ departureDate);    
                 }}
                   />
                 {!tekYon &&
@@ -105,11 +83,10 @@ const SelectionCard = () => {
                 disablePast
                 value={returnDate}
                 format='DD/MM/YYYY' 
-                ref ={returningDateRef}
                 label ="Dönüş tarihi" sx ={{width:"45%"}}
                 onChange={(date)=>{
                     setReturnDate(date);
-                    console.log("returndate:"+returnDate);
+                    //console.log("returndate:"+returnDate);
                 }}
                 />}
             </LocalizationProvider>
@@ -119,19 +96,14 @@ const SelectionCard = () => {
         onClick={()=>{
             const readableDate1 = new Date(departureDate).toLocaleDateString(); // Dönüştürülen tarih
             const readableDate2 = new Date(returnDate).toLocaleDateString(); // Dönüştürülen tarih
-            dispatch(rewrite({departureDate:readableDate1,returnDate:readableDate2,
+            dispatch(rewrite({departureDate:departureDate,returnDate:readableDate2,
             from:from,to:to}));
-            console.log("flight options:"+flightoptions.departureDate);
+            //console.log("flight options:"+flightoptions.departureDate);
         }} 
         sx={{
             width:'50%'
         }} >BİLET BUL</Button> 
         </Link>
-        <Button onClick ={()=>{
-            dispatch(read());
-           
-            }}>See if it is true</Button>
-
         </Card>
     );
 }

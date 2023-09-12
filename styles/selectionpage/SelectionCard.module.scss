@@ -5,11 +5,12 @@
     background-color: white;
     position: fixed;
     top: 20vh;
-    left: 0;
+    left: 10vw;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    box-shadow: 1px 1px 2px 2px gray;
     .stack1{
         width: 100%;
         display: flex;
