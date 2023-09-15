@@ -320,8 +320,11 @@ const ListingArea = () => {
         />}
 
 {!isClicked ? 
-<><div  className={styles.flightList} >
-  <h1>GİDİŞ BİLETLERİ</h1>
+<>
+<div className={styles.baslikDiv}>
+  <h1 className={styles.ticketH}>GİDİŞ BİLETLERİ</h1></div>
+<div  className={styles.flightList} >
+  
     { 
         flights.map((flight,index)=>
         {   
@@ -354,9 +357,9 @@ const ListingArea = () => {
 
 </div></>
 :
-<div className={styles.flightList}>
-
-<h1>DÖNÜŞ BİLETLERİ</h1>
+<>
+  <div className={styles.baslikDiv}>
+<h1 className={styles.ticketH}>DÖNÜŞ BİLETLERİ</h1>
 <button className={styles.backButton}
 onClick={()=>{
   setIsClicked(isClicked => !isClicked);
@@ -365,7 +368,10 @@ onClick={()=>{
 >
   <img src='/backArrow.png'></img>
   <p>GİDİŞ BİLETLERİNE DÖN</p>
-</button>
+</button></div>
+<div className={styles.flightList}>
+
+
     { 
         returnFlights.map((flight,index)=>
         {   
@@ -399,6 +405,7 @@ onClick={()=>{
     }
 
 </div>
+</>
 }
          </>} 
         
