@@ -1,6 +1,33 @@
     .card1unvisible{
         display: none;
     }
+    @media (min-width:1200px) {
+        .card1unvisible {
+            width: 30vw;
+            height: 50vh;
+            background-color: white;
+            position: fixed;
+            top: 20vh;
+            left: 10vw;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 1px 1px 2px 2px gray;
+            overflow: visible;
+            z-index: -20;
+            opacity: 1;
+            .stack1{
+                width: 100%;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                }
+        }
+    }
+
+
+
     .card1{
     width: 30vw;
     height: 50vh;
@@ -16,6 +43,7 @@
     overflow: visible;
     z-index: -20;
     opacity: 1;
+    min-width:300px;
     .stack1{
         width: 100%;
         display: flex;

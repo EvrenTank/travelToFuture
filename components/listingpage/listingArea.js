@@ -319,7 +319,8 @@ const ListingArea = () => {
         duration={donusBileti.duration}
         />}
 
-{!isClicked ? <div  className={styles.flightList} >
+{!isClicked ? 
+<><div  className={styles.flightList} >
   <h1>GİDİŞ BİLETLERİ</h1>
     { 
         flights.map((flight,index)=>
@@ -351,7 +352,7 @@ const ListingArea = () => {
         )})
     }
 
-</div>
+</div></>
 :
 <div className={styles.flightList}>
 
