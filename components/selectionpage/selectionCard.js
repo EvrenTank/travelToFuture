@@ -16,7 +16,7 @@ import { useDispatch,useSelector } from 'react-redux';
 import {read,rewrite } from '../../flightoptions/slice.js';
 import Link from 'next/link';
 
-const SelectionCard = () => {
+const SelectionCard = ({isClicked,setIsClicked}) => {
 
     const flightoptions = useSelector((state)=>state.flightoptionsReducer)
     const dispatch = useDispatch()
@@ -36,7 +36,7 @@ const SelectionCard = () => {
     
     return (
           
-      <Card className = {styles.card1}>
+      <Card className = {isClicked ? styles.card1unvisible : styles.card1}>
       <FormControlLabel control={<Checkbox onChange={changeEvent} defaultChecked />} label="Tek yön" />
       <Autocomplete
       disablePortal
