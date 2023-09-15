@@ -23,6 +23,9 @@
             aspect-ratio: 1;
         }
     }
+
+
+
     .navbarDiv{
         position: absolute;
         right:10vw;
@@ -38,7 +41,7 @@
             list-style-type: none;
             
             li{
-                color:red;
+                color:black;
                 font-family: Verdana, Geneva, Tahoma, sans-serif;
                 border-right: 2px solid white;
                 padding-left: 5px;
@@ -65,6 +68,62 @@
         }
         
     }
+    @media (max-width:1200px) {
+        .navbarDiv{
+            display: none;
+        }
+        
+    }
+    .navbarDiv2{
+        display:none;
+    }
+
+    @media (max-width:1200px)
+    {
+        .navbarDiv2{
+        position: absolute;
+        right:10vw;
+        top:0;
+        height: 50vh;
+        width:auto;
+        display:flex;
+
+      
+        
+            .navbarList{/*ul elemanı*/
+                display: flex;
+                flex-direction: column;
+                list-style-type: none;
+                
+                li{
+                    color:black;
+                    font-family: Verdana, Geneva, Tahoma, sans-serif;
+                    border-right: 2px solid white;
+                    padding-left: 5px;
+                    padding-right: 5px;
+                    display: flex;
+    
+                    cursor: pointer;
+                    &:hover{
+                        background-color: rgba(200,200,200,0.5);
+                        transition: background-color 0.5s linear;
+                    }
+                    h4 {
+                        font-size: 15px;
+                        
+                        img{
+                            width: 15px;
+                            height:15px;
+                            color:red;
+                        }
+                    }
+                }            
+        }
+
+        
+    }}
+
+
     .h{
         font-size: 150px;
 

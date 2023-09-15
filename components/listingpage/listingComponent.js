@@ -1,13 +1,14 @@
 "use client";
 import styles from '../../styles/listingpage/ListingComponent.module.scss'
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import axios from "axios";
 
-const ListingComponent = ({companyName,price,departureTime,from,to,duration}) => {
+const ListingComponent = ({departureDate,companyName,price,departureTime,from,to,duration,onClick}) => {
 
     const companyNameUpperCase = companyName.toUpperCase();
     const [landing,setLanding] = useState('');
+    const spanRef = useRef(null);
 
     const landingTime = (departureTime, duration)=>{
 // time'lar string olarak geliyor.
@@ -19,15 +20,21 @@ const ListingComponent = ({companyName,price,departureTime,from,to,duration}) =>
     const durationMin = parseInt(lan[1]);
     var min=0; 
     var hour=0;
+    var ertesiGun='';
 
     min= (depMin+durationMin) %  60;
     hour = (depHour+durationHour) + Math.floor((depMin+durationMin)/60) ;
-    setLanding(hour.toString().padStart(2,0) + ":" + min.toString().padStart(2,0));
+    if (hour > 24){
+        hour = hour%24;
+        ertesiGun = "(E.G.) ";
+        spanRef.current.setAttribute("title",`Ertesi Gün ${hour.toString().padStart(2,0) + ":" + min.toString().padStart(2,0)}`)
     }
-    useEffect(()=>{landingTime(departureTime,duration)},[])
+    setLanding(ertesiGun+hour.toString().padStart(2,0) + ":" + min.toString().padStart(2,0));
+    }
+    useEffect(()=>{landingTime(departureTime,duration)},[companyName,departureDate,price])
 
     return (
-        <div className={styles.mainDiv} >
+        <div className={styles.mainDiv} onClick={onClick}>
             <div className ={styles.companynameDiv}>
                 <Image
                 className={styles.image1} 
@@ -44,15 +51,16 @@ const ListingComponent = ({companyName,price,departureTime,from,to,duration}) =>
                     <span >{from}</span>
                 </div>
                 <div className ={styles.subdiv2}>
+                    <span className={styles.span1}>{duration}</span>
                     <Image 
                     className={styles.image2}
                     width={200}
                     height={200}
                     src ='/arrow-right3.png'/>
-                    <span className={styles.span1}>{duration}</span>
+                    <span className={styles.span2}>{departureDate}</span>
                 </div>
                 <div className ={styles.subdiv3}>
-                    <span>{landing}</span>
+                    <span ref={spanRef}>{landing}</span>
                     <span>{to}</span>
                 </div>
                

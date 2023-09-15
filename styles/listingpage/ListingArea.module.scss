@@ -1,12 +1,24 @@
 .mainDiv{
 
-    position: fixed;
     width:90vw;
     position:fixed;
     left:5vw;
     top:2vh;
     display: flex;
     flex-direction: column;
+
+    .loadingDiv{
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        .centerDiv{
+            width: 10vw;
+            aspect-ratio: 1;
+            border: 1px solid black;
+        }
+    }
 
     .filterDiv{
         height:20vh;
@@ -34,22 +46,91 @@
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
+        .searchButton{
+            height: 5vh;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            align-items: center;
+            .searchIcon{
+                height:2.5vh;
+                aspect-ratio: 1;
+                display: inline-block;
+            }
+        }
         .from {
-            width: 20%;
+            width:20%;
         }
         .to {
             width:20%;
         }
-    
+        .departuredate{
+            width:25%;
+        }
+        .returndate{
+            width:25%;
+        }
        }
         
     }    
-.div11{
+.flightList{
     width: 90vw;
-    height: 80vh;
+    height:80vh;
     top:20vh;
     left:5vw;
     overflow: auto;
+    box-shadow: 1px 1px 2px  gray;
+    &::-webkit-scrollbar {
+        width: 8px;
+        position: relative;
+        
+
+      }
+      /* Track */
+      &::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 5px grey;
+        border-radius: 10px;
+        margin-bottom: 2vh;
+        margin-top:16px;
+      }
+          /* Handle */
+    &::-webkit-scrollbar-thumb {
+        background-color: gray;
+        background: gray;
+        border-radius: 10px;
+      }
+  
+      /* Handle on hover */
+      &::-webkit-scrollbar-thumb:hover {
+        background: rgba(80, 80, 80, 0.8);
+        background-color: rgba(80, 80, 80, 0.8);
+      }
+    .backButton{
+        position:sticky;
+        top:0px;
+        width:200px;
+        left:calc(90vw - 400px);
+        display: inline-flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        img{
+            display: inline-block;
+            height: 2.5vh;
+            aspect-ratio: 1;
+    
+        }
+        p{
+            display: inline-block;
+        }
+    }
+    h1{
+        margin-left: 5%;
+        position: sticky ;
+        top:0;
+        display: inline-block;
+
+    }
 }
 
 }

@@ -56,7 +56,7 @@ const SelectionCard = () => {
       id="to"
       options={cities}
       value ={to}
-      sx={{ width: '100%' }}
+      sx={{ width: '100%'}}
       onChange = {(event,newValue) =>{
         setTo(newValue);
         //console.log("to="+to);
@@ -96,7 +96,7 @@ const SelectionCard = () => {
         onClick={()=>{
             const readableDate1 = new Date(departureDate).toLocaleDateString(); // Dönüştürülen tarih
             const readableDate2 = new Date(returnDate).toLocaleDateString(); // Dönüştürülen tarih
-            dispatch(rewrite({departureDate:departureDate,returnDate:readableDate2,
+            dispatch(rewrite({departureDate:departureDate,returnDate:returnDate,
             from:from,to:to}));
             //console.log("flight options:"+flightoptions.departureDate);
         }} 
