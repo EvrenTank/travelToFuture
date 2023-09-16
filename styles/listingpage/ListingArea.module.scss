@@ -14,12 +14,12 @@
         align-items: center;
         justify-content: center;
         .centerDiv{
-            width: 10vw;
+            width: 20vw;
+            min-width: 60px;
             aspect-ratio: 1;
-            border: 1px solid black;
+           
         }
     }
-
     .filterDiv{
         height:20vh;
         width: 90vw;
@@ -36,6 +36,7 @@
             max-width:180px;
         }
       }
+      
       .optionsDiv{
         height: 20vh;
         width: 70vw;
@@ -71,6 +72,13 @@
             width:25%;
         }
        }
+
+      /* @media (max-width:1000px){
+        .optionsDiv{
+            flex-direction: column;
+            
+        }
+      }*/
         
     }
 
@@ -125,7 +133,7 @@
       &::-webkit-scrollbar-track {
         box-shadow: inset 0 0 5px grey;
         border-radius: 10px;
-        margin-bottom: 2vh;
+        margin-bottom: 2px;
       }
           /* Handle */
     &::-webkit-scrollbar-thumb {
