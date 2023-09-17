@@ -10,11 +10,13 @@ import TextField from '@mui/material/TextField';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import Checkbox from '@mui/material/Checkbox';
+import FormControlLabel from '@mui/material/FormControlLabel';
 import LoadingAnimation from "../animation/loadingAnimation";
 
 const ListingArea = () => {
 
-  const cities = ["ADANA","ADIYAMAN", "AFYONKARAHISAR", "AGRI", "AMASYA", "ANKARA", "ANTALYA","ARTVIN","AYDIN"];
+    const cities = ["ADANA","ADIYAMAN", "AFYONKARAHISAR", "AGRI", "AMASYA", "ANKARA", "ANTALYA","ARTVIN","AYDIN"];
     const [loading,setLoading] = useState(true);
     const [flights,setFlights] = useState([]);
     const [returnFlights,setReturnFlights] = useState([]);
@@ -26,12 +28,17 @@ const ListingArea = () => {
     const [returnDate,setReturnDate] = useState(flightoptions.returnDate);
     const [from,setFrom] = useState(flightoptions.from);
     const [to,setTo] = useState(flightoptions.to);
+    const [tekYon,setTekYon] = useState(flightoptions.tekYon)
 
 /*  companyName={flight.companyName}
         price={flight.price}
         departureTime={flight.departureTime}
         from={flight.from}
         to={flight.to}*/
+    const changeEvent = () => {
+      setTekYon(tekYon => !tekYon);
+    };   
+
 
 
     const [gidisBileti,setGidisBileti]=useState({
@@ -217,24 +224,29 @@ const ListingArea = () => {
     
     return (
         <div className={styles.mainDiv}>
-         {loading ? <div className={styles.loadingDiv}>
+         {loading ? 
+         (<div className={styles.loadingDiv}>
           <div className={styles.centerDiv}>
             <LoadingAnimation/>
           </div>
-          </div>
+          </div>)
          :
          <>
          <div className={styles.filterDiv}>
-        <div className={styles.selectDiv}>
+        <div className={styles.leftDiv}>
         <select className={styles.selectList} ref={selectRef} onChange={sortByOption} >
          <option value="Kalkış saati">Kalkış saati</option>
          <option value="Uçuş süresi">Uçuş süresi</option>
          <option value="Fiyat"> Fiyat</option>
         </select>
         </div>
-        <div className={styles.optionsDiv}>
-          
-        <Autocomplete
+        <div className={styles.middleDiv}>
+          <div className={styles.switchDiv}>
+      <FormControlLabel control={<Checkbox   onChange={changeEvent} checked={tekYon} />} label="Tek yön" />
+
+          </div>
+          <div className={styles.destinationDiv}>
+          <Autocomplete
       disablePortal
       className={styles.from}
       options={cities}
@@ -258,7 +270,10 @@ const ListingArea = () => {
       renderInput={(params) => <TextField {...params} label="Varış Havaalanı" 
       />}
     />
-                  <LocalizationProvider dateAdapter={AdapterDayjs} >
+          </div>
+   <div className={styles.dateDiv}>
+    
+   <LocalizationProvider dateAdapter={AdapterDayjs} >
                 <DatePicker 
                 className={styles.departuredate}
                 id='departureDate'
@@ -277,6 +292,7 @@ const ListingArea = () => {
                 id='returnDate'
                 label="Dönüş tarihi" 
                 disablePast
+                disabled = {tekYon}
                 sx ={{width:"40%"}}  
                 value={returnDate}
                 format='DD/MM/YYYY'
@@ -287,11 +303,13 @@ const ListingArea = () => {
                   />
 
             </LocalizationProvider>
-            <button className={styles.searchButton} onClick={reWrite} >
+   </div>
+
+        </div>
+        <div className={styles.rightDiv} >
+           <button className={styles.searchButton} onClick={reWrite} >
               <p>YENİDEN ARA</p><img className={styles.searchIcon}  src={'/searchicon.png'}>
                 </img></button>
-
-
         </div>
         </div>
         { 
@@ -308,7 +326,7 @@ const ListingArea = () => {
         }
 
         { 
-        (isClicked && donusSelected) && 
+        (isClicked && donusSelected && !tekYon) && 
         <ListingComponent
         departureDate={donusBileti.departureDate}
         companyName={donusBileti.companyName}
@@ -318,9 +336,15 @@ const ListingArea = () => {
         to={donusBileti.to}
         duration={donusBileti.duration}
         />}
+        
+        <button className={styles.onayButton}
+        disabled ={tekYon ? !isClicked : !(isClicked && donusSelected)}
+        onClick={()=>{ alert("Bilet seçimi tamamlandı. Ödemeyi daha sonra yaparsınız. İyi günler.")
+        }}
+        >SEÇİMLERİ ONAYLA</button>
 
 {!isClicked ? 
-<>
+(<>
 <div className={styles.baslikDiv}>
   <h1 className={styles.ticketH}>GİDİŞ BİLETLERİ</h1></div>
 <div  className={styles.flightList} >
@@ -355,9 +379,9 @@ const ListingArea = () => {
         )})
     }
 
-</div></>
-:
-<>
+</div></>)
+://iç içe iki tane {} bu parantezlerden açmak sanırım hataya neden oluyor. Onun yerine {()} şeklinde yapılabilir.
+(!tekYon && <> 
   <div className={styles.baslikDiv}>
 <h1 className={styles.ticketH}>DÖNÜŞ BİLETLERİ</h1>
 <button className={styles.backButton}
@@ -395,17 +419,14 @@ onClick={()=>{
             to:flight.to,
             duration:flight.duration,
             price:flight.price   
-
           })
-
-
         }}
         />
         )})
     }
 
 </div>
-</>
+</>)
 }
          </>} 
         

@@ -6,7 +6,15 @@
     top:2vh;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .onayButton{
+        width: 12vw;
+        min-width: 85px;
+        max-width: 150px;
+    
 
+    }
     .loadingDiv{
         width: 100%;
         height: 100vh;
@@ -24,10 +32,11 @@
         height:20vh;
         width: 90vw;
         position: relative;
-       .selectDiv{
+     
+     .leftDiv{
         height: 20vh;
         width:20vw;
-        display: flex;
+        display: inline-flex;
         align-items: center;
         justify-content: center;
                 .selectList{
@@ -37,15 +46,67 @@
         }
       }
       
-      .optionsDiv{
+      .middleDiv{
         height: 20vh;
-        width: 70vw;
+        width: 50vw;
         position: absolute;
         top:0;
         left: 20vw;
-        display: flex;
-        flex-direction: row;
+        display: inline-flex;
+        flex-direction: column;
         justify-content: space-between;
+        align-items: center;
+
+        .switchDiv{
+            height: 4vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .destinationDiv{
+            width:50vw;
+            height:8vh;
+            display:flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            gap:5%;
+    
+            .from {
+                width:40%;
+            }
+            .to {
+                width:40%;
+            }
+        }
+        .dateDiv{
+            width:50vw;
+            height: 8vh;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            gap: 5%;
+            .departuredate{
+                width:40%;
+            }
+            .returndate{
+                width:40%;
+            }
+
+        }
+        
+ 
+
+       }
+
+       .rightDiv{
+        width:20vw;
+        height:20vh;
+        display: inline-flex;
+        position: absolute;
+        left:70vw;
+        justify-content: center;
         align-items: center;
         .searchButton{
             height: 5vh;
@@ -59,19 +120,9 @@
                 display: inline-block;
             }
         }
-        .from {
-            width:20%;
-        }
-        .to {
-            width:20%;
-        }
-        .departuredate{
-            width:25%;
-        }
-        .returndate{
-            width:25%;
-        }
+
        }
+
 
       /* @media (max-width:1000px){
         .optionsDiv{

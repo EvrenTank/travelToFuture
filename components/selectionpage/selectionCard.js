@@ -22,8 +22,8 @@ const SelectionCard = ({isClicked,setIsClicked}) => {
     const dispatch = useDispatch()
 
     const cities = ["ADANA","ADIYAMAN", "AFYONKARAHISAR", "AGRI", "AMASYA", "ANKARA", "ANTALYA","ARTVIN","AYDIN"];
-    const [tekYon, setTekYon] = useState(true);
-
+    
+    const [tekYon, setTekYon] = useState(flightoptions.tekYon);
     const [departureDate,setDepartureDate] = useState(null);
     const [returnDate,setReturnDate] = useState(null);
     const [from,setFrom] = useState(cities[0]);
@@ -37,7 +37,7 @@ const SelectionCard = ({isClicked,setIsClicked}) => {
     return (
           
       <Card className = {isClicked ? styles.card1unvisible : styles.card1}>
-      <FormControlLabel control={<Checkbox onChange={changeEvent} defaultChecked />} label="Tek yön" />
+      <FormControlLabel control={<Checkbox onChange={changeEvent} checked={tekYon} />} label="Tek yön" />
       <Autocomplete
       disablePortal
       id="from"
@@ -77,10 +77,10 @@ const SelectionCard = ({isClicked,setIsClicked}) => {
                     //console.log("departure date:"+ departureDate);    
                 }}
                   />
-                {!tekYon &&
+            
                 <DatePicker 
                 id='returningDate'
-                disablePast
+                disabled={tekYon}
                 value={returnDate}
                 format='DD/MM/YYYY' 
                 label ="Dönüş tarihi" sx ={{width:"45%"}}
@@ -88,7 +88,7 @@ const SelectionCard = ({isClicked,setIsClicked}) => {
                     setReturnDate(date);
                     //console.log("returndate:"+returnDate);
                 }}
-                />}
+                />
             </LocalizationProvider>
             </Stack>
         <Link href='/listingpage'>
@@ -97,7 +97,7 @@ const SelectionCard = ({isClicked,setIsClicked}) => {
             const readableDate1 = new Date(departureDate).toLocaleDateString(); // Dönüştürülen tarih
             const readableDate2 = new Date(returnDate).toLocaleDateString(); // Dönüştürülen tarih
             dispatch(rewrite({departureDate:departureDate,returnDate:returnDate,
-            from:from,to:to}));
+            from:from,to:to,tekYon:tekYon}));
             //console.log("flight options:"+flightoptions.departureDate);
         }} 
         sx={{

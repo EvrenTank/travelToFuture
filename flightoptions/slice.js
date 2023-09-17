@@ -1,10 +1,11 @@
 import {createSlice} from '@reduxjs/toolkit';
 
 const initialState = {
-    departureDate: '11.09.2023',
-    returnDate: '12.09.2023',
+    departureDate: '20.09.2023',
+    returnDate: '22.09.2023',
     from:'ADANA',
-    to: 'AGRI'
+    to: 'AGRI' ,
+    tekYon: true
 };
 
 const slice = createSlice(
@@ -24,6 +25,7 @@ const slice = createSlice(
             state.returnDate = action.payload.returnDate;
             state.from = action.payload.from;
             state.to = action.payload.to;
+            state.tekYon = action.payload.tekYon
             //console.log("action.payload.departureDate",action.payload.departureDate)
             //console.log("action.payload.returnDate",action.payload.returnDate)
             //console.log("action.payload.from",action.payload.from)

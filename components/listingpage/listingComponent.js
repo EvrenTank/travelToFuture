@@ -34,7 +34,7 @@ const ListingComponent = ({departureDate,companyName,price,departureTime,from,to
     useEffect(()=>{landingTime(departureTime,duration)},[companyName,departureDate,price])
 
     return (
-        <div className={styles.mainDiv} onClick={onClick}>
+        <div className={styles.listingComponentmainDiv} onClick={onClick}>
             <div className ={styles.companynameDiv}>
                 <Image
                 className={styles.image1} 
