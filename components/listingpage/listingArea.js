@@ -13,6 +13,8 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import LoadingAnimation from "../animation/loadingAnimation";
+import OneWay from "./components/oneWay";
+import Return from "./components/return";
 
 const ListingArea = () => {
 
@@ -344,89 +346,24 @@ const ListingArea = () => {
         >SEÇİMLERİ ONAYLA</button>
 
 {!isClicked ? 
-(<>
-<div className={styles.baslikDiv}>
-  <h1 className={styles.ticketH}>GİDİŞ BİLETLERİ</h1></div>
-<div  className={styles.flightList} >
-  
-    { 
-        flights.map((flight,index)=>
-        {   
-        return (
-        <ListingComponent key={index}
-        departureDate={flight.departureDate}
-        companyName={flight.companyName}
-        price={flight.price}
-        departureTime={flight.departureTime}
-        from={flight.from}
-        to={flight.to}
-        duration={flight.duration}
-        onClick = {()=>{
-          setIsClicked(isClicked=>!isClicked);
-          setGidisBileti({
-            ...gidisBileti,
-            departureDate:flight.departureDate,
-            companyName:flight.companyName,
-            departureTime:flight.departureTime,
-            from:flight.from,
-            to:flight.to,
-            duration:flight.duration,
-            price:flight.price   
 
-          });
-        }}
-        />
-        )})
-    }
-
-</div></>)
+<OneWay flights={flights}
+isClicked={isClicked}
+setIsClicked={setIsClicked}
+gidisBileti={gidisBileti}
+setGidisBileti={setGidisBileti}
+/>
 ://iç içe iki tane {} bu parantezlerden açmak sanırım hataya neden oluyor. Onun yerine {()} şeklinde yapılabilir.
-(!tekYon && <> 
-  <div className={styles.baslikDiv}>
-<h1 className={styles.ticketH}>DÖNÜŞ BİLETLERİ</h1>
-<button className={styles.backButton}
-onClick={()=>{
-  setIsClicked(isClicked => !isClicked);
-  setDonusSelected(false);
-  }}
->
-  <img src='/backArrow.png'></img>
-  <p>GİDİŞ BİLETLERİNE DÖN</p>
-</button></div>
-<div className={styles.flightList}>
-
-
-    { 
-        returnFlights.map((flight,index)=>
-        {   
-        return (
-        <ListingComponent key={index}
-        departureDate={flight.departureDate}
-        companyName={flight.companyName}
-        price={flight.price}
-        departureTime={flight.departureTime}
-        from={flight.from}
-        to={flight.to}
-        duration={flight.duration}
-        onClick = {()=>{
-          setDonusSelected(true);
-          setDonusBileti({
-            ...donusBileti,
-            departureDate:flight.departureDate,
-            companyName:flight.companyName,
-            departureTime:flight.departureTime,
-            from:flight.from,
-            to:flight.to,
-            duration:flight.duration,
-            price:flight.price   
-          })
-        }}
-        />
-        )})
-    }
-
-</div>
-</>)
+(!tekYon && 
+<Return
+returnFlights={returnFlights}
+isClicked={isClicked}
+setIsClicked={setIsClicked}
+donusBileti={donusBileti}
+setDonusBileti={setDonusBileti}
+setDonusSelected={setDonusSelected}
+set
+/>)
 }
          </>} 
         
