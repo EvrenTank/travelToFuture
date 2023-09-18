@@ -4,15 +4,7 @@ import axios from 'axios';
 import styles from '../../styles/listingpage/ListingArea.module.scss'
 import { useEffect, useRef, useState } from "react";
 import { useDispatch,useSelector } from 'react-redux';
-import {read,rewrite } from '../../flightoptions/slice.js';
-import Autocomplete from '@mui/material/Autocomplete';
-import TextField from '@mui/material/TextField';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import Checkbox from '@mui/material/Checkbox';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import LoadingAnimation from "../animation/loadingAnimation";
+import {rewrite } from '../../flightoptions/slice.js';
 import OneWay from "./components/oneWay";
 import Return from "./components/return";
 import RechooseDiv from "./components/rechooseDiv";
@@ -35,17 +27,9 @@ const ListingArea = () => {
     const [to,setTo] = useState(flightoptions.to);
     const [tekYon,setTekYon] = useState(flightoptions.tekYon)
 
-/*  companyName={flight.companyName}
-        price={flight.price}
-        departureTime={flight.departureTime}
-        from={flight.from}
-        to={flight.to}*/
-
     const changeEvent = () => {
       setTekYon(tekYon => !tekYon);
     };   
-
-
 
     const [gidisBileti,setGidisBileti]=useState({
         departureDate:'',
@@ -56,6 +40,7 @@ const ListingArea = () => {
         duration:'',
         price:''   
     });
+
     const [donusBileti,setDonusBileti]=useState({
       departureDate:'',
       companyName:'',
@@ -68,35 +53,23 @@ const ListingArea = () => {
   
   const [donusSelected, setDonusSelected] = useState(false);
 
-
-
-    const readValues = () => {
-      setDepartureDate(flightoptions.departureDate);
-      setReturnDate(flightoptions.returnDate);
-      setFrom(flightoptions.from);
-      setTo(flightoptions.to);
-    };
-    useEffect(()=>{
-      reWrite();
-  
+  useEffect(
+    ()=>{
+     reWrite();
     },[])
 
-    useEffect(()=>{
+  useEffect(()=>{
     readData();
     // değerlerin düzgün şekilde güncellenmesi için aşağıdaki dependency'leri girmem grekti.
-},[flightoptions.departureDate,flightoptions.returnDate,flightoptions.from,flightoptions.to])
+  },[flightoptions.departureDate,flightoptions.returnDate,flightoptions.from,flightoptions.to])
     
     const reWrite = ()=>{
-      console.log('departureDate'+departureDate);
 
         const readableDate1 = new Date(departureDate).toLocaleDateString(); // Dönüştürülen tarih
         const readableDate2 = new Date(returnDate).toLocaleDateString(); // Dönüştürülen tarih
-        console.log('readableDate1'+readableDate1);
-
         dispatch(rewrite({departureDate:readableDate1,returnDate:readableDate2,
         from:from,to:to}));
        
-   
 }
 
     const readData = () => {
@@ -122,12 +95,7 @@ const ListingArea = () => {
             setReturnFlights(appropriateFlights2);
             console.log("return Flights");
             console.log(appropriateFlights2);
-
             setTimeout(() =>{setLoading(false);},2000);
-            //setLoading(false);
-            console.log("loading şu anda false olması gerekiyor"+loading);
-
-
         })
         .catch((error) => {
             setLoading(false);
@@ -145,28 +113,23 @@ const ListingArea = () => {
           // bu yüzden [...flights].sort() seklinde yapmak gerekiyor. 
             sortedFlights = [...flights].sort((a,b) => sortBydepartureTime(a,b));
             sortedReturnFlights = [...returnFlights].sort((a,b) => sortBydepartureTime(a,b));
-            //console.log("çalışıyor1");
-            //console.log("sortedFlights",sortedFlights[0]);
             setFlights(sortedFlights);
             setReturnFlights(sortedReturnFlights);
             
 
         }
         else if(value === "Uçuş süresi"){
+
             sortedFlights = [...flights].sort((a,b) => sortByDuration(a,b));
             sortedReturnFlights = [...returnFlights].sort((a,b) => sortByDuration(a,b));
-
-            //console.log("çalışıyor2")
-            //console.log("sortedFlights",sortedFlights[0]);
-             setFlights(sortedFlights);
-             setReturnFlights(sortedReturnFlights);
+            setFlights(sortedFlights);
+            setReturnFlights(sortedReturnFlights);
 
        }
        else if(value === "Fiyat"){
+
         sortedFlights = [...flights].sort((a,b) =>sortByPrice(a,b));
         sortedReturnFlights = [...returnFlights].sort((a,b) =>sortByPrice(a,b));
-        //console.log("çalışıyor3")
-        //console.log("sortedFlights",sortedFlights[0]);
         setFlights(sortedFlights);
         setReturnFlights(sortedReturnFlights);
 
@@ -175,7 +138,6 @@ const ListingArea = () => {
        setFlights(sortedFlights);
        setReturnFlights(sortedReturnFlights);
 
-    
     }
     // duration ve departureTime'a göre sıralamak için bu kullanılacak.
     const sortBydepartureTime = (object1,object2) => {
@@ -299,7 +261,7 @@ setIsClicked={setIsClicked}
 donusBileti={donusBileti}
 setDonusBileti={setDonusBileti}
 setDonusSelected={setDonusSelected}
-set
+
 />)
 }
          </>} 

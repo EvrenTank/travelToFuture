@@ -59,7 +59,6 @@ const SelectionCard = ({isClicked,setIsClicked}) => {
       sx={{ width: '100%'}}
       onChange = {(event,newValue) =>{
         setTo(newValue);
-        //console.log("to="+to);
       }}
       renderInput={(params) => <TextField {...params} label="Varış Havaalanı" />}
     />
@@ -101,7 +100,8 @@ const SelectionCard = ({isClicked,setIsClicked}) => {
             //console.log("flight options:"+flightoptions.departureDate);
         }} 
         sx={{
-            width:'50%'
+            width:'100%',
+            marginBottom:'10px'
         }} >BİLET BUL</Button> 
         </Link>
         </Card>
