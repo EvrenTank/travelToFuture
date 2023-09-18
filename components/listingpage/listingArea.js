@@ -15,6 +15,9 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import LoadingAnimation from "../animation/loadingAnimation";
 import OneWay from "./components/oneWay";
 import Return from "./components/return";
+import RechooseDiv from "./components/rechooseDiv";
+import LoadingPage from "./components/loadingPage";
+
 
 const ListingArea = () => {
 
@@ -37,6 +40,7 @@ const ListingArea = () => {
         departureTime={flight.departureTime}
         from={flight.from}
         to={flight.to}*/
+
     const changeEvent = () => {
       setTekYon(tekYon => !tekYon);
     };   
@@ -227,93 +231,26 @@ const ListingArea = () => {
     return (
         <div className={styles.mainDiv}>
          {loading ? 
-         (<div className={styles.loadingDiv}>
-          <div className={styles.centerDiv}>
-            <LoadingAnimation/>
-          </div>
-          </div>)
+         <LoadingPage/>
          :
          <>
-         <div className={styles.filterDiv}>
-        <div className={styles.leftDiv}>
-        <select className={styles.selectList} ref={selectRef} onChange={sortByOption} >
-         <option value="Kalkış saati">Kalkış saati</option>
-         <option value="Uçuş süresi">Uçuş süresi</option>
-         <option value="Fiyat"> Fiyat</option>
-        </select>
-        </div>
-        <div className={styles.middleDiv}>
-          <div className={styles.switchDiv}>
-      <FormControlLabel control={<Checkbox   onChange={changeEvent} checked={tekYon} />} label="Tek yön" />
+         <RechooseDiv
+         changeEvent={changeEvent}
+         tekYon={tekYon}
+         sortByOption={sortByOption}
+         selectRef={selectRef}
+         cities={cities}
+         to={to}
+         setTo={setTo}
+         from={from}
+         setFrom={setFrom}
+         departureDate={departureDate}
+         returnDate={returnDate}
+         setDepartureDate={setDepartureDate}
+         setReturnDate={setReturnDate}
+         reWrite={reWrite}
 
-          </div>
-          <div className={styles.destinationDiv}>
-          <Autocomplete
-      disablePortal
-      className={styles.from}
-      options={cities}
-      value ={from}
-      onChange = {(event,newValue) =>{
-        setFrom(newValue);
-        console.log("from:"+from);
-      }}
-
-      renderInput={(params) => <TextField {...params} label="Kalkış Havaalanı" 
-      />}
-    />
-            <Autocomplete
-      disablePortal
-      className={styles.to}
-      value ={to}
-      onChange = {(event,newValue) =>{
-        setTo(newValue);
-      }}
-      options={cities}
-      renderInput={(params) => <TextField {...params} label="Varış Havaalanı" 
-      />}
-    />
-          </div>
-   <div className={styles.dateDiv}>
-    
-   <LocalizationProvider dateAdapter={AdapterDayjs} >
-                <DatePicker 
-                className={styles.departuredate}
-                id='departureDate'
-                label="Gidiş tarihi" 
-                disablePast
-                sx ={{width:"40%"}}  
-                value={departureDate}
-                format='DD/MM/YYYY'
-                onChange={(date)=>{
-                    setDepartureDate(date);
-                    console.log("departure date onchange kısmı:"+ departureDate);    
-                }}
-                  />
-                <DatePicker 
-                className={styles.returndate}
-                id='returnDate'
-                label="Dönüş tarihi" 
-                disablePast
-                disabled = {tekYon}
-                sx ={{width:"40%"}}  
-                value={returnDate}
-                format='DD/MM/YYYY'
-                onChange={(date)=>{
-                    setReturnDate(date);
-                    console.log("return date onchange kısmı:"+ returnDate);    
-                }}
-                  />
-
-            </LocalizationProvider>
-   </div>
-
-        </div>
-        <div className={styles.rightDiv} >
-           <button className={styles.searchButton} onClick={reWrite} >
-              <p>YENİDEN ARA</p><img className={styles.searchIcon}  src={'/searchicon.png'}>
-                </img></button>
-        </div>
-        </div>
+         />
         { 
         isClicked &&
          <ListingComponent
@@ -341,7 +278,7 @@ const ListingArea = () => {
         
         <button className={styles.onayButton}
         disabled ={tekYon ? !isClicked : !(isClicked && donusSelected)}
-        onClick={()=>{ alert("Bilet seçimi tamamlandı. Ödemeyi daha sonra yaparsınız. İyi günler.")
+        onClick={()=>{ alert("Bilet seçimi tamamlandı. İyi günler.")
         }}
         >SEÇİMLERİ ONAYLA</button>
 

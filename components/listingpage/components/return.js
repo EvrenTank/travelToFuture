@@ -19,7 +19,13 @@ onClick={()=>{
 <div className={styles.flightList}>
 
     { 
-        returnFlights.map((flight,index)=>
+      returnFlights.length == 0 ? 
+      <h1> 
+        Seçimlere uygun uçuş bulunamamıştır. Lütfen 15 Eylül - 30 Eylül arasında bir gün seçin.
+        </h1>
+        :
+        (
+          returnFlights.map((flight,index)=>
         {   
         return (
         <ListingComponent key={index}
@@ -45,7 +51,9 @@ onClick={()=>{
         }}
         />
         )})
+        )
     }
+    
 
 </div>
 </>

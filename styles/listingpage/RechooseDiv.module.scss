@@ -1,0 +1,104 @@
+.rechooseDiv{
+    height:20vh;
+    width: 90vw;
+    position: relative;
+ 
+ .leftDiv{
+    height: 20vh;
+    width:20vw;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+            .selectList{
+        height: 5vh;
+        width: 15vw; 
+        max-width:180px;
+    }
+  }
+  
+  .middleDiv{
+    height: 20vh;
+    width: 50vw;
+    position: absolute;
+    top:0;
+    left: 20vw;
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+    .switchDiv{
+        height: 2vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .destinationDiv{
+        width:50vw;
+        height:9vh;
+        display:flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap:5%;
+
+        .from {
+            width:40%;
+        }
+        .to {
+            width:40%;
+        }
+    }
+    .dateDiv{
+        width:50vw;
+        height: 9vh;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 5%;
+        .departuredate{
+            width:40%;
+        }
+        .returndate{
+            width:40%;
+        }
+
+    }
+    
+
+
+   }
+
+   .rightDiv{
+    width:20vw;
+    height:20vh;
+    display: inline-flex;
+    position: absolute;
+    left:70vw;
+    justify-content: center;
+    align-items: center;
+    .searchButton{
+        height: 5vh;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        .searchIcon{
+            height:2.5vh;
+            aspect-ratio: 1;
+            display: inline-block;
+        }
+    }
+
+   }
+
+
+  /* @media (max-width:1000px){
+    .optionsDiv{
+        flex-direction: column;
+        
+    }
+  }*/
+    
+}

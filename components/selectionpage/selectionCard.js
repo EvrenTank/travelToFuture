@@ -68,7 +68,7 @@ const SelectionCard = ({isClicked,setIsClicked}) => {
                 <DatePicker 
                 id='departureDate'
                 label="Gidiş tarihi" 
-                disablePast
+                //disablePast
                 sx ={{width:"45%"}}  
                 format='DD/MM/YYYY'
                 value={departureDate}
