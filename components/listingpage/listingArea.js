@@ -77,7 +77,7 @@ const ListingArea = () => {
         console.log("use Effect flightoptions.returnDate===="+flightoptions.returnDate);
         console.log("use Effect flightoptions.from===="+flightoptions.from);
         console.log("use Effect flightoptions.to===="+flightoptions.to);
-        axios.get("http://localhost:5000/flights/")
+        axios.get("https://json-server-fakerestapi.vercel.app/flights")
         .then((response)=>{
             console.log("loading şu anda true olması gerekiyor"+loading);
             //handle success
