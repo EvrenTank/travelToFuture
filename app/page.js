@@ -11,8 +11,8 @@ export default function Home() {
 
   return (
    <Provider store={store}>
-   <MyHeader isClicked={isClicked} setIsClicked={setIsClicked}/>
-   <SelectionCard isClicked={isClicked} setIsClicked={setIsClicked}/>
+    <MyHeader isClicked={isClicked} setIsClicked={setIsClicked}/>
+    <SelectionCard isClicked={isClicked} setIsClicked={setIsClicked}/>
    </Provider>
   )
 }
