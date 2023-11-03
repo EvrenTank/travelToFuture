@@ -1,0 +1,91 @@
+.rechooseDiv {
+  height: 20vh;
+  width: 90vw;
+  position: relative;
+  /* @media (max-width:1000px){
+    .optionsDiv{
+        flex-direction: column;
+
+    }
+  }*/
+}
+.rechooseDiv .leftDiv {
+  height: 20vh;
+  width: 20vw;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.rechooseDiv .leftDiv .selectList {
+  height: 5vh;
+  width: 15vw;
+  max-width: 180px;
+}
+.rechooseDiv .middleDiv {
+  height: 20vh;
+  width: 50vw;
+  position: absolute;
+  top: 0;
+  left: 20vw;
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+.rechooseDiv .middleDiv .switchDiv {
+  height: 2vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.rechooseDiv .middleDiv .destinationDiv {
+  width: 50vw;
+  height: 9vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 5%;
+}
+.rechooseDiv .middleDiv .destinationDiv .from {
+  width: 40%;
+}
+.rechooseDiv .middleDiv .destinationDiv .to {
+  width: 40%;
+}
+.rechooseDiv .middleDiv .dateDiv {
+  width: 50vw;
+  height: 9vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 5%;
+}
+.rechooseDiv .middleDiv .dateDiv .departuredate {
+  width: 40%;
+}
+.rechooseDiv .middleDiv .dateDiv .returndate {
+  width: 40%;
+}
+.rechooseDiv .rightDiv {
+  width: 20vw;
+  height: 20vh;
+  display: inline-flex;
+  position: absolute;
+  left: 70vw;
+  justify-content: center;
+  align-items: center;
+}
+.rechooseDiv .rightDiv .searchButton {
+  height: 5vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+.rechooseDiv .rightDiv .searchButton .searchIcon {
+  height: 2.5vh;
+  aspect-ratio: 1;
+  display: inline-block;
+}/*# sourceMappingURL=RechooseDiv.module.css.map */

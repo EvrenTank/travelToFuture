@@ -1,0 +1,80 @@
+.mainDiv {
+  width: 90vw;
+  position: fixed;
+  left: 5vw;
+  top: 2vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.mainDiv .onayButton {
+  width: 12vw;
+  min-width: 85px;
+  max-width: 150px;
+}
+.mainDiv .baslikDiv {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.mainDiv .baslikDiv .ticketH {
+  margin-left: 5%;
+}
+.mainDiv .baslikDiv .backButton {
+  width: 200px;
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+.mainDiv .baslikDiv .backButton img {
+  display: inline-block;
+  height: 2.5vh;
+  aspect-ratio: 1;
+  margin-right: 3px;
+}
+.mainDiv .baslikDiv .backButton p {
+  display: inline-block;
+}
+.mainDiv .flightList {
+  width: 90vw;
+  top: 20vh;
+  height: 40vh;
+  left: 5vw;
+  padding-top: 30px;
+  padding-bottom: 50px;
+  overflow: auto;
+  box-shadow: 1px 1px 2px gray;
+  /* Track */
+  /* Handle */
+  /* Handle on hover */
+}
+.mainDiv .flightList::-webkit-scrollbar {
+  width: 8px;
+  position: relative;
+}
+.mainDiv .flightList::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 10px;
+  margin-bottom: 2px;
+}
+.mainDiv .flightList::-webkit-scrollbar-thumb {
+  background-color: gray;
+  background: gray;
+  border-radius: 10px;
+}
+.mainDiv .flightList::-webkit-scrollbar-thumb:hover {
+  background: rgba(80, 80, 80, 0.8);
+  background-color: rgba(80, 80, 80, 0.8);
+}
+.mainDiv .flightList h1 {
+  margin-left: 5%;
+  position: sticky;
+  top: 0;
+  margin-top: 0;
+  display: inline-block;
+}/*# sourceMappingURL=ListingArea.module.css.map */

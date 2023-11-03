@@ -1,0 +1,155 @@
+@charset "UTF-8";
+.header1 {
+  width: 100vw;
+  height: 15vh;
+  background-color: white;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid gray;
+  /* navbarDiv2 display:none yaptım şimdilik. Sonra düzenleyeceğim. */
+}
+.header1 .imageDiv {
+  position: absolute;
+  height: 100%;
+  aspect-ratio: 1;
+  left: 10vw;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.header1 .imageDiv .imageCompany {
+  max-height: 15vh;
+  aspect-ratio: 1;
+}
+.header1 .hamburgerDiv {
+  display: none;
+}
+.header1 .navbarDiv {
+  position: absolute;
+  right: 10vw;
+  height: 100%;
+  width: auto;
+  display: flex;
+  align-items: center;
+  z-index: 10;
+  opacity: 1;
+}
+.header1 .navbarDiv .navbarList {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  list-style-type: none;
+}
+.header1 .navbarDiv .navbarList li {
+  color: black;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  border-right: 2px solid white;
+  padding-left: 5px;
+  padding-right: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.header1 .navbarDiv .navbarList li:hover {
+  background-color: rgba(200, 200, 200, 0.5);
+  transition: background-color 0.5s linear;
+}
+.header1 .navbarDiv .navbarList li h4 {
+  font-size: 15px;
+}
+.header1 .navbarDiv .navbarList li h4 img {
+  width: 15px;
+  height: 15px;
+  color: red;
+}
+@media (max-width: 1200px) {
+  .header1 .navbarDiv {
+    display: none;
+  }
+  .header1 .hamburgerDiv {
+    position: absolute;
+    height: 100%;
+    width: 10vw;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+.header1 .navbarDiv2 {
+  display: none;
+}
+.header1 .navbarDiv2Active {
+  position: absolute;
+  top: 15vh;
+  width: 100vw;
+  height: 40vh;
+  min-height: 380px;
+  display: flex;
+  align-items: center;
+  z-index: 10;
+  padding: 0;
+  box-shadow: 1px 1px 10px black;
+}
+.header1 .navbarDiv2Active .navbarList { /*ul elemanı*/
+  list-style-type: none;
+  width: 100%;
+  height: 40vh;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-left: 0; /*Bullettan kaynaklı genişliği sıfırlamak için gerekli*/
+  position: absolute;
+  top: 0;
+  left: 10vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.header1 .navbarDiv2Active .navbarList li {
+  color: black;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  border-right: 2px solid white;
+  padding: 0;
+  border: 1px solid rgba(0, 0, 0, 0);
+  position: relative;
+  cursor: pointer;
+}
+.header1 .navbarDiv2Active .navbarList li::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: black;
+  transition: width 1s ease;
+}
+.header1 .navbarDiv2Active .navbarList li:hover::before {
+  width: 100%;
+}
+.header1 .navbarDiv2Active .navbarList li:hover {
+  /*background-color: rgba(200,200,200,0.5);*/
+  transition: background-color 0.5s linear;
+}
+.header1 .navbarDiv2Active .navbarList li h4 {
+  font-size: 15px;
+}
+.header1 .navbarDiv2Active .navbarList li h4 img {
+  width: 15px;
+  height: 15px;
+  color: red;
+}
+@media (min-width: 1200px) {
+  .header1 .navbarDiv2Active {
+    display: none;
+  }
+}
+.header1 .h {
+  font-size: 150px;
+}/*# sourceMappingURL=MyHeader.module.css.map */
